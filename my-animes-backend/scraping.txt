@@ -1,0 +1,10 @@
+%2F = "/"
+%3F = "?"
+%3D = "="
+
+
+DOWNLOAD_TOKEN="38a97ca95dee1bbb41613f92531188a03535171c31a761f6491f4681afb62495"
+
+https://www.animefenix.com/redirect.php?player=22&
+code=
+  srv4.fireload.com%2F26d6fffd51b05034%2FLycoris_6.mp4%3Fdownload_token%3D38a97ca95dee1bbb41613f92531188a03535171c31a761f6491f4681afb62495&thumbnail=https%3A%2F%2Fwww.animefenix.com%2Fcdn%2Fanimes%2Fscreenshot%2F62b3763cc7a2f%2Flycoris-recoil.jpg
