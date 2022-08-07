@@ -11,7 +11,8 @@ class Fireload(Downloader):
         url.replace("%3D", "=")
         return f"https://{url}"
 
-    def download(self, video_id: str):
+    def download(self, video_id: str, filename: str):
+        video_dir = self.compose_video_dir(filename)
         """ video_id -> video_url with dw_token """
         url = self.process_url(video_id)
 
@@ -22,4 +23,4 @@ class Fireload(Downloader):
                 "code": res.status_code,
                 "message": "Cannot found video"
             })
-        self.process_video(res, self.video_dir)
+        self.process_video(res, video_dir)

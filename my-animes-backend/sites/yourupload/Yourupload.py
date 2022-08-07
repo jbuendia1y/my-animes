@@ -35,7 +35,8 @@ def get_download_url(video_id: str) -> str:
 
 
 class YourUpload(Downloader):
-    def download(self, video_id: str):
+    def download(self, video_id: str, filename: str):
+        video_dir = self.compose_video_dir(filename)
         print("Fetching download url ...")
         url = get_download_url(video_id)
         print("Download url fetched !!")
@@ -51,5 +52,5 @@ class YourUpload(Downloader):
                 "code": res.status_code,
                 "message": "Cannot found video"
             })
-        self.process_video(res, self.video_dir)
-        print(f"Downloaded {self.filename} !!")
+        self.process_video(res, video_dir)
+        print(f"Downloaded {filename} !!")
