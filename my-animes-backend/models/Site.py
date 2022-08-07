@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 import os
 from typing import List
 from tqdm import tqdm
@@ -6,17 +6,28 @@ from tqdm import tqdm
 from requests import Response
 
 
-class Downloader:
-    def __init__(self, dir: str, filename: str):
+class Downloader(ABC):
+    def __init__(self, dir: str, extension: str = None):
+        """
+        Params:
+        -
+        -   dir         (str)   Directory where save files
+        -   extension   (str)   Extension of file -> default : .mp4
+        """
         if not os.path.exists(dir):
             os.mkdir(dir)
+        if not extension:
+            self.extension = ".mp4"
         self.dir = dir
-        self.filename = filename
 
-        self.video_dir = os.path.join(dir, filename)
+    def compose_video_dir(self, filename: str) -> str:
+        if not self.extension in filename:
+            filename += self.extension
+        return os.path.join(self.dir, filename)
 
     @staticmethod
     def process_video(res: Response, video_dir: str):
+        """ Process and save video """
         with open(video_dir, "wb") as f:
             size = int(res.headers.get("content-length", 0))
             progress_bar = tqdm(
@@ -33,11 +44,7 @@ class Downloader:
             progress_bar.close()
 
     @abstractmethod
-    def get_code(self):
-        pass
-
-    @abstractmethod
-    def download(self, video_id: str):
+    def download(self, video_id: str, filename: str):
         pass
 
 
@@ -52,7 +59,7 @@ class AnimeSite:
     def download_chapter(self, slug: str, chapter: int, player_name: str = None) -> None:
         """ Download and save video """
         url = self.get_video_url(slug, chapter, player_name)
-        self.dw.download(url)
+        self.dw.download(url, f"cap-{chapter}")
 
     def download(self, slug: str, dir: str):
         """ Download videos """

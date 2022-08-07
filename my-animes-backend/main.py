@@ -49,7 +49,7 @@ if __name__ == "__main__":
     anime_slug = args.name
     chapter = args.chapter
 
-    AnimeFenix(YourUpload(
-        f"static/animes/{anime_slug}",
-        f"cap-{chapter}.mp4")
-    ).download_chapter(anime_slug, chapter)
+    player = YourUpload(f"static/animes/{anime_slug}")
+
+    provider = AnimeFenix(player)
+    provider.download_chapter(anime_slug, chapter)
